@@ -142,8 +142,11 @@ function ConvLSTM:updateOutput(input)
    if self.step == 1 then
       prevOutput = self.userPrevOutput or self.zeroTensor
       prevCell = self.userPrevCell or self.zeroTensor
-      if self.batchSize then
-         self.zeroTensor:resize(self.batchSize,self.outputSize,input:size(3),input:size(4)):zero()
+
+      --if self.batchSize then
+      if input:dim() == 4 then
+         --self.zeroTensor:resize(self.batchSize,self.outputSize,input:size(3),input:size(4)):zero()
+         self.zeroTensor:resize(input:size(1),self.outputSize,input:size(3),input:size(4)):zero()
       else
          self.zeroTensor:resize(self.outputSize,input:size(2),input:size(3)):zero()
       end
